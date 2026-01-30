@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { box-sizing: border-box; }
+body { font-family: Arial; font-size: 13px; margin: 8px; background:#f5f7fa; }
+.company-header { background:#ffe600; font-weight:bold; text-align:center; padding:10px; border-radius:6px; font-size:20px; }
+.page-title { text-align:center; font-weight:bold; background:#3f7fdc; color:white; padding:8px; border-radius:6px; margin-bottom:12px; }
+.header-box { background:#cfe8ff; border:2px solid #333; padding:14px; border-radius:6px; margin-bottom:14px; }
+.header-box label { font-weight:bold; display:block; margin-bottom:4px; }
+.header-box input, .header-box select {
+  width:100%; height:38px; padding:8px;
+  border:2px solid #4a90e2; border-radius:5px;
+  text-transform:uppercase;
+}
+.table-wrapper { width:100%; overflow-x:auto; border:2px solid #333; border-radius:6px; background:white; }
+table { min-width:1200px; border-collapse:collapse; width:100%; }
+th, td { border:1.5px solid #555; padding:4px; text-align:center; white-space:nowrap; }
+td input, td select {
+  height:30px; padding:4px;
+  border:1.5px solid #333; border-radius:4px;
+  font-size:12px; text-transform:uppercase;
+}
+button { padding:8px 12px; font-weight:bold; border:none; border-radius:6px; cursor:pointer; }
+.btn-add { background:#3498db; color:white; }
+.btn-submit { background:#27ae60; color:white; }
+.btn-remove { background:#d32f2f; color:white; }
+</style>
+</head>
+
+<body>
+
+<div class="company-header">SATI EXPORTS INDIA PVT LTD</div>
+<div class="page-title">Quarry Marking Entry</div>
+
+<div class="header-box">
+  <div style="display:flex; gap:12px;">
+    <div style="flex:1">
+      <label>Marker Name *</label>
+      <select id="markerName">
+        <option value="">Select Marker</option>
+        <option>MARIAPPAN</option>
+        <option>MAHENDRA</option>
+        <option>AMIT</option>
+      </select>
+    </div>
+
+    <div style="flex:1">
+      <label>Marker Date *</label>
+      <input type="date" id="markerDate">
+    </div>
+
+    <div style="flex:1">
+      <label>Quarry Name *</label>
+      <input list="quarryList" id="quarryName" onblur="validateDatalist(this,'quarryList')">
+    </div>
+  </div>
+</div>
+
+<datalist id="quarryList">
+ <option value="NISA ENTERPRISES">
+ <option value="MURUGAN QUARRY">
+ <option value="OM SRI GRANITES">
+ <option value="SRI LAKSHMI ENTERPRISES">
+ <option value="GS MARBLES AND GRANITE">
+ <option value="GMRR GRANITES">
+ <option value="AISHWARYA GRANITE">
+ <option value="S J NATURAL MINERALS">
+ <option value="SIVA JEYAM GRANITES">
+ <option value="ALAXA GRANITE">
+ <option value="ANNA MUTH QUARRY">
+ <option value="THE STONE FACTORY">
+ <option value="BHOO VARAHA GRANITES">
+ <option value="AKASH ENTERPRISES">
+ <option value="AYMAN">
+ <option value="SAKTHISARADA MINES">
+ <option value="SANDS GRANITES">
+ <option value="INDIAN GRANITE EXPORTS">
+ <option value="MAHASEN EXPORTS">
+ <option value="PATEL STONE INDIA">
+ <option value="PRS GRANITES">
+ <option value="ROYAL GRAND GRANITES">
+ <option value="SABARI STONEXA LLP">
+ <option value="SREE VARI">
+ <option value="SRI SAI SABRI">
+ <option value="SURYA GRANITES IMPEX">
+ <option value="AL TOUSIFF MINERALS">
+ <option value="MOHAN NAIDU GRANITES">
+ <option value="SRI GANAPATHI GRANITES">
+ <option value="SRI VENKATASAI GRANITES">
+ <option value="VISHNU GRANITES">
+ <option value="A N A STONE">
+ <option value="ADWIKA GRANITES & EXPORTS">
+ <option value="GSK ENTERPRISES">
+ <option value="K.M.B.GRANITE ENTERPRISES">
+ <option value="KEMPSZ INTERNATIONAL">
+ <option value="KEMPSZ TRADING PVT LTD">
+ <option value="S K J GRANITES">
+ <option value="JAYASHREE ENTERPRISES">
+ <option value="GLOBLE ENTERPRISES">
+ <option value="A N GRANITE">
+ <option value="LINGARAJ ROCKS PVT LTD">
+ <option value="PASHUPATI EXPORT">
+ <option value="TAMIL NADU MINERALS LIMITED">
+ <option value="RUDRA STONES">
+ <option value="SRI KANNABIRAN GRANITE">
+ <option value="FAB STONES">
+ <option value="SHREE CHARBHUJA STONE">
+ <option value="MY STONE HOUSE LLP">
+ <option value="AGA ENTERPRISES">
+ <option value="M.JAYABAL GRANITES">
+ <option value="MANIMARAN">
+ <option value="S.RAJA GREY GRANITE">
+ <option value="SREE RAMAJAYAM GRANITES">
+ <option value="SRI RAMAJAYAM GRANITES">
+ <option value="VINAYAKA MINERALS INC">
+ <option value="VVR STONES">
+ <option value="SREE RAMAJAYAM ENTERPRISES">
+ <option value="VINAYAKA ENTERPRISES">
+ <option value="DAHLIA GRANITES PVT LTD">
+ <option value="MP GRANITES">
+ <option value="SHRI SAI SABARI ENTERPRISES">
+ <option value="AGEM ENTERPRISES">
+ <option value="BLUE BEE GRANITES">
+ <option value="COLONIAL GRANITES">
+ <option value="ELEPHANT GRANITES">
+ <option value="GOPAL QUARRY">
+ <option value="KIPSI INTERNATIONAAL">
+ <option value="MADHUCON GRANITES LTD">
+ <option value="NAMA UMADEVI">
+ <option value="SUN GRANITES INDIA PVT LTD">
+ <option value="SREE GURU DATTHA GRANITES">
+ <option value="VIRAT STONES">
+ <option value="B.R.GRANITES PVT LTD">
+ <option value="KARUNYA ROCKS">
+ <option value="R.MADHIYAN">
+ <option value="RAJA RAJESWARI STONE">
+ <option value="SRI VINAYAGA GRANITES">
+ <option value="MUKUNDA STONE PVT LTD">
+ <option value="PRAGATHI GRANITES & MARBLES">
+ <option value="SRI GANESH ENTERPRISES">
+ <option value="WILBER IMPEX PVT LTD">
+ <option value="GOURA GRANITES">
+ <option value="HTM GRANITES EXPORTS">
+ <option value="SREE RAGHAVENDRA ENTERPRISES">
+ <option value="ALAMBIR SINGH GRANITES">
+ <option value="SUPER STONE INDUSTRIES">
+ <option value="DESIGNER ROCKS PVT LTD-TS">
+ <option value="M S GRANITES & EXPORTS-TS">
+ <option value="SUN BRIGHT GRANITE">
+ <option value="MAJESTIC GRANITES PVT LTD">
+ <option value="SLK TRADERS">
+ <option value="SPR GRANITES">
+ <option value="DHARSANAA ENTERPRISE">
+ <option value="PKK EXPORTS">
+ <option value="ANAUM STONES">
+ <option value="ABC QUARRY">
+ <option value="POPULAR">
+ <option value="RATHNA MINERAL ENTERPRISES">
+ <option value="SAI JYOTHI GRANITES">
+ <option value="SRI VEERA GRANITE">
+ <option value="SRT GRANITES">
+ <option value="M S GRANITES & EXPORTS">
+ <option value="KALPA EXPORTS">
+ <option value="CHANDNA MARBLES">
+ <option value="HAVELI">
+ <option value="MAYSHI TECHNICA">
+ <option value="KISAN EXPORTS">
+ <option value="BONANZA GRANITES">
+ <option value="SUVI GRANITE INDUSTRIES">
+ <option value="VARIETY TRADE LINKS">
+ <option value="SREYA MINERALS">
+ <option value="SADASHIVA GRANITES">
+ <option value="IMPERIAL GRANITES PRIVATE LIMITED">
+ <option value="CH SRINIVAS KUMAR">
+ <option value="NEMANI MINES">
+ <option value="STONE PLUS">
+ <option value="SUNDANCE MINES AND MINERALS">
+ <option value="GOVINDRAJ QUARRY">
+ <option value="SG GRANITES">
+ <option value="AIR AND SEA TRADING COMPANY">
+ <option value="AKSHAYA GRANITES">
+ <option value="ATCHAYAMEENA EXPORTS">
+ <option value="DIVYA GRANITES">
+ <option value="DK MINING LLP">
+ <option value="FINE LINE GRANITES">
+ <option value="GAYATHRI GRANITES & EXPORTS">
+ <option value="ISHVARYA GRANITES">
+ <option value="KRISHNA CHITANYA ALLURU">
+ <option value="SAPTHARSHI MINERALS">
+ <option value="SREENIDHI MINES PVT LTD">
+ <option value="SRI RANGA BRICKS">
+ <option value="SRI SAI GRANITES">
+ <option value="SRI SATYADEVA MINERALS">
+ <option value="SURYA ROCKS-PRO-G.HARIKRISHNA">
+ <option value="TEJASWI GRANITES">
+ <option value="THIRUMALA GRANITES">
+ <option value="TURBO GRANITES LLP">
+ <option value="DESIGNER ROCKS PVT LTD">
+ <option value="EARTH STEIN PRIVATE LIMITED">
+ <option value="EVER STONE GRANITES">
+ <option value="STERLING STONEX PVT LTD">
+ <option value="VAMSADHARA MINES AND GRANITES">
+ <option value="VIRGIN ROCK PVT LTD">
+ <option value="CBR TRADING PVT LTD">
+ <option value="SIVA SAKTHI GRANITES">
+ <option value="KISHORE GRANITES PVT LTD">
+ <option value="JYOTHEESWARAM GRANITES">
+ <option value="JAYASREE INDUSTRIES">
+ <option value="SRI SAI EXPORTS">
+ <option value="SWETHA STONES">
+ <option value="SIVASAKTHI ROCK EXPORTS">
+ <option value="PRISTINE IMPEX">
+ <option value="TIGER ROCKS">
+ <option value="PRABHAT GRANITE PVT LTD">
+ <option value="SRI SAI ROCKS">
+ <option value="Ocean Blue Enterprises">
+ <option value="SHRUTHI GRANITES">
+ <option value="SKANDA EXPORTS">
+ <option value="YADI STONES PRIVATE LIMITED">
+</datalist>
+
+<datalist id="colorList">
+ <option value="ABSOLUTE BLACK">
+ <option value="ADONIK">
+ <option value="ALASKA WHITE">
+ <option value="AMAZON IVORY">
+ <option value="AMAZON WHITE">
+ <option value="ANDROMEDA WHITE">
+ <option value="ANGOLA BROWN">
+ <option value="ANTIQUE PEARL">
+ <option value="ANTIQUE WHITE">
+ <option value="ARIZONA GREEN">
+ <option value="ASHWIN WHITE">
+ <option value="ASPEN WHITE">
+ <option value="ASTORIA IVORY">
+ <option value="ASTORIA PINK">
+ <option value="AZUL NOVA">
+ <option value="BASH PARADISO">
+ <option value="BENGAL BLACK">
+ <option value="BIANCO BLIZZARD">
+ <option value="BIANCO BLUE">
+ <option value="BIANCO EXOTICA">
+ <option value="BLACK">
+ <option value="BLACK FOREST">
+ <option value="BLACK FOREST-P (US)">
+ <option value="BLACK FOREST-K (TP)">
+ <option value="BLACK GALAXY">
+ <option value="BLACK PEARL">
+ <option value="BLACK TITANIUM">
+ <option value="BLACK-CHR">
+ <option value="BLACK-DT">
+ <option value="BLACK-G18">
+ <option value="BLACK-G20">
+ <option value="BLACK-GD">
+ <option value="BLACK-KD">
+ <option value="BLACK-KD VS">
+ <option value="BLACK-KMB">
+ <option value="BLACK-KNG">
+ <option value="BLACK-KNI">
+ <option value="BLACK-MALI">
+ <option value="BLACK-MINI GS">
+ <option value="BLACK-MLA">
+ <option value="BLACK-NM">
+ <option value="BLACK-PEL">
+ <option value="BLACK-PG">
+ <option value="BLACK-TP">
+ <option value="BLACK-TS">
+ <option value="BLACK-WRN">
+ <option value="BLACK-YSR">
+ <option value="BLUE DUNES">
+ <option value="BLUE FLOWER">
+ <option value="BLUE GALAXY WHITE">
+ <option value="CALACATTA D'ORO">
+ <option value="CANYON GOLD">
+ <option value="CANYON GOLD-S">
+ <option value="CATS EYE">
+ <option value="CHINA WHITE">
+ <option value="CLASSIC PARADISO">
+ <option value="COASTAL GREEN">
+ <option value="COFFEE BROWN">
+ <option value="COLOMBO JUPRANA">
+ <option value="COLONIAL CREAM">
+ <option value="COLONIAL GOLD">
+ <option value="COLONIAL WHITE">
+ <option value="COPENHAGEN">
+ <option value="CRYSTAL BROWN">
+ <option value="CT BROWN">
+ <option value="CUTTER MIX COLOR">
+ <option value="DONNA GREY">
+ <option value="FUSION GOLD">
+ <option value="GANGSAW MIX COLOR">
+ <option value="GIBLI PINK">
+ <option value="GREY MARBLE">
+ <option value="GREY MIST">
+ <option value="HASAAN GREEN">
+ <option value="HASSAN GREEN">
+ <option value="HIMALAYAN BLUE">
+ <option value="HIMALAYAN BLUE-G">
+ <option value="HIMALAYAN BLUE-S">
+ <option value="HONER WHITE">
+ <option value="HONEY BROWN">
+ <option value="IMPALA BLACK">
+ <option value="IMPERIAL GOLD">
+ <option value="IMPERIAL RED">
+ <option value="INDIAN AURORA">
+ <option value="INDIAN JUPRANA">
+ <option value="ITALIAN STONEX">
+ <option value="IVORY BROWN">
+ <option value="IVORY FANTASY">
+ <option value="JASMINE WHITE">
+ <option value="KASHMIR WHITE">
+ <option value="KUPPAM GREEN">
+ <option value="KUPPAM WHITE">
+ <option value="LAURENZA RED">
+ <option value="MADURA GOLD">
+ <option value="MANI WHITE">
+ <option value="MARBLE MIX COLOR">
+ <option value="MILLENNIUM CREAM">
+ <option value="MILLENNIUM GOLD">
+ <option value="MIST BLACK">
+ <option value="MONALISA">
+ <option value="MONTE CRISTO">
+ <option value="MONUMENT">
+ <option value="NARDO GREY">
+ <option value="NEW IMPERIAL RED">
+ <option value="NEW WHITE">
+ <option value="NOVA BLACK">
+ <option value="OLIVE FOREST">
+ <option value="ORION WHITE">
+ <option value="PANDA WHITE">
+ <option value="PINK PEARL">
+ <option value="RANDOM GRANITE SLABS RATE">
+ <option value="RANDOM GRANITE SLABS TONS">
+ <option value="RED MULTI COLOR">
+ <option value="REGAL BLACK">
+ <option value="RIVER WHITE">
+ <option value="ROMANTIC PINK">
+ <option value="ROSE IVORY">
+ <option value="ROYAL BLACK">
+ <option value="SAND STONE">
+ <option value="SHIVA GOLD">
+ <option value="SILVER FALLS">
+ <option value="SILVER PARADISO">
+ <option value="SOAP STONE">
+ <option value="SPICE BLACK">
+ <option value="SRILANKA WHITE">
+ <option value="STAR GALAXY">
+ <option value="STEEL GREY">
+ <option value="STRABERRY PINK">
+ <option value="TAN BROWN">
+ <option value="THUNDER WHITE">
+ <option value="TITANIUM BLACK">
+ <option value="ULTIMATE BLACK">
+ <option value="VISCON WHITE">
+ <option value="VISCON WHITE-P">
+ <option value="VISCON WHITE-M">
+ <option value="VIZAG BLUE">
+ <option value="WARANGAL BLACK">
+ <option value="WHISPER WHITE">
+ <option value="WHITE KNIGHT">
+ <option value="AQUA WHITE">
+ <option value="PANDA GOLD">
+ <option value="NEW VISCON WHITE-P">
+</datalist>
+
+<div class="table-wrapper">
+<table id="tbl">
+<thead>
+<tr>
+  <th>Quarry No *</th>
+  <th>Quarry No 2</th>
+  <th>Color *</th>
+  <th>Net (L) *</th>
+  <th>Net (H) *</th>
+  <th>Net (W) *</th>
+  <th>Net CBM</th>
+  <th>Actual Price / CBM *</th>
+  <th>Quality *</th>
+  <th>Quality Note *</th>
+  <th>Action</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<br>
+<button class="btn-add" onclick="addRow()">➕ Add Row</button>
+<button class="btn-submit" onclick="submitData()">✅ Submit</button>
+
+<script>
+let isSubmitting = false;
+
+window.onload = () => {
+  markerDate.valueAsDate = new Date();
+};
+
+/* ===== HARD STOP ON ERROR ===== */
+function fail(msg, el) {
+  isSubmitting = false;
+  alert(msg);
+  if (el) el.focus();
+  throw new Error(msg); // ⛔ STOPS EXECUTION – NO AUTO SUBMIT
+}
+
+/* ===== Quarry No Format ===== */
+function formatQuarryNo(input) {
+  let v = input.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if (/^\d+$/.test(v)) { input.value = v.slice(0,4); return; }
+  const a = v.slice(0,4).replace(/\d/g,'');
+  const d = v.slice(a.length,a.length+4).replace(/\D/g,'');
+  input.value = d ? `${a}-${d}` : a;
+}
+
+/* ===== Datalist Validation ===== */
+function validateDatalist(input, listId) {
+  const list = document.getElementById(listId);
+  const values = [...list.options].map(o => o.value);
+  input.value = input.value.toUpperCase();
+  if (input.value && !values.includes(input.value)) {
+    fail('Please select a valid value from the list', input);
+  }
+}
+
+/* ===== 3 Digit Limit + CBM ===== */
+function limit3Digits(input) {
+  input.value = input.value.replace(/\D/g,'');
+  if (input.value.length > 3) input.value = input.value.slice(0,3);
+  calcCBM(input);
+}
+
+function calcCBM(el) {
+  const row = el.closest('tr');
+  const l = +row.children[3].children[0].value || 0;
+  const h = +row.children[4].children[0].value || 0;
+  const w = +row.children[5].children[0].value || 0;
+  const cbm = (l * h * w) / 1000000;
+  row.children[6].children[0].value = cbm ? cbm.toFixed(3) : '';
+}
+
+/* ===== Add Row ===== */
+function addRow() {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input style="width:110px" maxlength="10" oninput="formatQuarryNo(this)"></td>
+    <td><input style="width:110px"></td>
+    <td><input list="colorList" onblur="validateDatalist(this,'colorList')"></td>
+    <td><input type="number" style="width:70px" oninput="limit3Digits(this)"></td>
+    <td><input type="number" style="width:70px" oninput="limit3Digits(this)"></td>
+    <td><input type="number" style="width:70px" oninput="limit3Digits(this)"></td>
+    <td><input readonly style="width:90px"></td>
+    <td><input type="number"></td>
+    <td>
+      <select>
+        <option value="">Select</option>
+        <option>1ST</option>
+        <option>2ND</option>
+        <option>3RD</option>
+        <option>4TH</option>
+      </select>
+    </td>
+    <td><input></td>
+    <td><button class="btn-remove" onclick="this.closest('tr').remove()">Remove</button></td>
+  `;
+  document.querySelector('#tbl tbody').appendChild(tr);
+}
+
+/* ===== SUBMIT WITH STRICT VALIDATION ===== */
+function submitData() {
+  if (isSubmitting) return;
+  isSubmitting = true;
+
+  if (!markerName.value) fail('Marker Name is mandatory', markerName);
+  if (!markerDate.value) fail('Marker Date is mandatory', markerDate);
+  if (!quarryName.value) fail('Quarry Name is mandatory', quarryName);
+
+  const rows = [...document.querySelectorAll('#tbl tbody tr')];
+  if (!rows.length) fail('At least one row is required');
+
+  rows.forEach((r,i)=>{
+    const row=i+1;
+    if(!r.children[0].children[0].value) fail(`Row ${row}: Quarry No mandatory`,r.children[0].children[0]);
+    if(!r.children[2].children[0].value) fail(`Row ${row}: Color mandatory`,r.children[2].children[0]);
+    if(!(+r.children[3].children[0].value)) fail(`Row ${row}: Net (L) mandatory`,r.children[3].children[0]);
+    if(!(+r.children[4].children[0].value)) fail(`Row ${row}: Net (H) mandatory`,r.children[4].children[0]);
+    if(!(+r.children[5].children[0].value)) fail(`Row ${row}: Net (W) mandatory`,r.children[5].children[0]);
+    if(!(+r.children[7].children[0].value)) fail(`Row ${row}: Price mandatory`,r.children[7].children[0]);
+    if(!r.children[8].children[0].value) fail(`Row ${row}: Quality mandatory`,r.children[8].children[0]);
+    if(!r.children[9].children[0].value) fail(`Row ${row}: Quality Note mandatory`,r.children[9].children[0]);
+  });
+
+  google.script.run
+    .withSuccessHandler(()=>{
+      document.querySelector('#tbl tbody').innerHTML='';
+      markerName.value='';
+      quarryName.value='';
+      markerDate.valueAsDate=new Date();
+      isSubmitting=false;
+      alert('Submitted Successfully');
+    })
+    .withFailureHandler(e=>{
+      alert(e.message);
+      isSubmitting=false;
+    })
+    .saveQuarryData(
+      {
+        markerName: markerName.value,
+        markerDate: markerDate.value,
+        quarryName: quarryName.value
+      },
+      rows.map(r=>({
+        quarryNo:r.children[0].children[0].value,
+        quarryNo2:r.children[1].children[0].value,
+        color:r.children[2].children[0].value,
+        length:+r.children[3].children[0].value,
+        height:+r.children[4].children[0].value,
+        width:+r.children[5].children[0].value,
+        price:+r.children[7].children[0].value,
+        quality:r.children[8].children[0].value,
+        note:r.children[9].children[0].value
+      }))
+    );
+}
+</script>
+
+</body>
+</html>
