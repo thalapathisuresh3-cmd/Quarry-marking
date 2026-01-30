@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { box-sizing: border-box; }
+body { font-family: Arial; font-size: 13px; margin: 8px; background:#f5f7fa; }
+.company-header { background:#ffe600; font-weight:bold; text-align:center; padding:10px; border-radius:6px; font-size:20px; }
+.page-title { text-align:center; font-weight:bold; background:#3f7fdc; color:white; padding:8px; border-radius:6px; margin-bottom:12px; }
+.header-box { background:#cfe8ff; border:2px solid #333; padding:14px; border-radius:6px; margin-bottom:14px; }
+.header-box label { font-weight:bold; display:block; margin-bottom:4px; }
+.header-box input, .header-box select {
+  width:100%; height:38px; padding:8px;
+  border:2px solid #4a90e2; border-radius:5px;
+  text-transform:uppercase;
+}
+.table-wrapper { width:100%; overflow-x:auto; border:2px solid #333; border-radius:6px; background:white; }
+table { min-width:1200px; border-collapse:collapse; width:100%; }
+th, td { border:1.5px solid #555; padding:4px; text-align:center; white-space:nowrap; }
+td input, td select {
+  height:30px; padding:4px;
+  border:1.5px solid #333; border-radius:4px;
+  font-size:12px; text-transform:uppercase;
+}
+button { padding:10px 14px; font-weight:bold; border:none; border-radius:6px; cursor:pointer; margin:5px; }
+.btn-add { background:#3498db; color:white; }
+.btn-submit { background:#27ae60; color:white; }
+.btn-remove { background:#d32f2f; color:white; }
+</style>
+</head>
+
+<body>
+
+<div class="company-header">SATI EXPORTS INDIA PVT LTD</div>
+<div class="page-title">Quarry Marking Entry</div>
+
+<div class="header-box">
+  <label>Marker Name *</label>
+  <select id="markerName">
+    <option value="">Select Marker</option>
+    <option>MARIAPPAN</option>
+    <option>MAHENDRA</option>
+    <option>AMIT</option>
+  </select>
+
+  <label>Marker Date *</label>
+  <input type="date" id="markerDate">
+
+  <label>Quarry Name *</label>
+  <input list="quarryList" id="quarryName">
+</div>
+
+<datalist id="quarryList">
+<option value="NISA ENTERPRISES">
+<option value="MURUGAN QUARRY">
+<option value="OM SRI GRANITES">
+</datalist>
+
+<datalist id="colorList">
+<option value="ABSOLUTE BLACK">
+<option value="ALASKA WHITE">
+<option value="BLACK GALAXY">
+</datalist>
+
+<div class="table-wrapper">
+<table id="tbl">
+<thead>
+<tr>
+  <th>Quarry No *</th>
+  <th>Quarry No 2</th>
+  <th>Color *</th>
+  <th>Net (L) *</th>
+  <th>Net (H) *</th>
+  <th>Net (W) *</th>
+  <th>Net CBM</th>
+  <th>Price *</th>
+  <th>Quality *</th>
+  <th>Note *</th>
+  <th>Action</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<br>
+
+<!-- ✅ FIXED BUTTON TYPES -->
+<button type="button" class="btn-add" onclick="addRow()">➕ Add Row</button>
+<button type="button" class="btn-submit" onclick="submitData()">✅ Submit</button>
+
+<script>
+window.onload = () => {
+  document.getElementById("markerDate").valueAsDate = new Date();
+};
+
+function fail(msg, el) {
+  alert(msg);
+  if (el) el.focus();
+  throw new Error(msg);
+}
+
+function calcCBM(row) {
+  const l = +row.children[3].children[0].value || 0;
+  const h = +row.children[4].children[0].value || 0;
+  const w = +row.children[5].children[0].value || 0;
+  const cbm = (l * h * w) / 1000000;
+  row.children[6].children[0].value = cbm ? cbm.toFixed(3) : '';
+}
+
+function addRow() {
+  const tr = document.createElement("tr");
+
+  tr.innerHTML = `
+    <td><input></td>
+    <td><input></td>
+    <td><input list="colorList"></td>
+    <td><input type="number" oninput="calcCBM(this.closest('tr'))"></td>
+    <td><input type="number" oninput="calcCBM(this.closest('tr'))"></td>
+    <td><input type="number" oninput="calcCBM(this.closest('tr'))"></td>
+    <td><input readonly></td>
+    <td><input type="number"></td>
+    <td>
+      <select>
+        <option value="">Select</option>
+        <option>1ST</option>
+        <option>2ND</option>
+        <option>3RD</option>
+        <option>4TH</option>
+      </select>
+    </td>
+    <td><input></td>
+    <td><button type="button" class="btn-remove" onclick="this.closest('tr').remove()">Remove</button></td>
+  `;
+
+  document.querySelector("#tbl tbody").appendChild(tr);
+}
+
+function submitData() {
+
+  if (!markerName.value) fail("Marker Name required", markerName);
+  if (!markerDate.value) fail("Marker Date required", markerDate);
+  if (!quarryName.value) fail("Quarry Name required", quarryName);
+
+  const rows = [...document.querySelectorAll("#tbl tbody tr")];
+  if (!rows.length) fail("Add at least one row!");
+
+  let output = `Marker: ${markerName.value}\nDate: ${markerDate.value}\nQuarry: ${quarryName.value}\n\n`;
+
+  rows.forEach((r, i) => {
+    output += `Row ${i+1}: QuarryNo=${r.children[0].children[0].value}, Color=${r.children[2].children[0].value}, CBM=${r.children[6].children[0].value}\n`;
+  });
+
+  alert("✅ FORM OUTPUT:\n\n" + output);
+}
+</script>
+
+</body>
+</html>
